@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "es": "eslint . --ext .vue,.js,.ts",
+    "tc": "nuxi typecheck",
+    "estc": "yarn es && yarn tc",
+    "dev": "yarn es --fix && yarn tc && nuxi dev",
+    "build": "nuxi build",
+    "preview": "nuxi preview",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@nuxt/postcss8": "^1.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "autoprefixer": "^10.4.4",
+    "eslint": "^8.13.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "nuxt3": "latest",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.3",
+    "vue-tsc": "^0.34.5"
+  }
+}
