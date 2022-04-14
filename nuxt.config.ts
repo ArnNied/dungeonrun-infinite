@@ -8,4 +8,7 @@ export default defineNuxtConfig({
       postcssOptions: require("./postcss.config.js"),
     },
   },
+  modules: [
+    "@pinia/nuxt"
+  ]
 })

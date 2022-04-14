@@ -3,7 +3,7 @@
   "scripts": {
     "es": "eslint . --ext .vue,.js,.ts",
     "tc": "nuxi typecheck",
-    "estc": "yarn es && yarn tc",
+    "estc": "yarn es; yarn tc",
     "dev": "yarn es --fix && yarn tc && nuxi dev",
     "build": "nuxi build",
     "preview": "nuxi preview",
@@ -21,5 +21,9 @@
     "tailwindcss": "^3.0.23",
     "typescript": "^4.6.3",
     "vue-tsc": "^0.34.5"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.1.8",
+    "pinia": "^2.0.13"
   }
 }

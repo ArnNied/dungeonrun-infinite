@@ -30,3 +30,16 @@
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { onMounted, onUnmounted } from "vue"
+import { playerStore } from "@/store/playerStore"
+
+const player = playerStore()
+onMounted(() => {
+  player.player
+})
+onUnmounted(() => {
+  console.log("unmounted")
+})
+</script>
