@@ -26,6 +26,12 @@
         >
           Tutorial
         </NuxtLink>
+        <NuxtLink
+          to="debug"
+          class="w-full p-4 border-2 border-solid border-green-700 text-2xl hover:bg-green-600 text-white text-center rounded-sm"
+        >
+          Debug
+        </NuxtLink>
       </div>
     </div>
   </div>
