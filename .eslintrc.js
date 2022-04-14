@@ -5,6 +5,9 @@ module.exports = {
     node: true,
     "vue/setup-compiler-macros": true,
   },
+  globals: {
+    useHead: "readonly", // Nuxt modify head feature
+  },
   extends: [
     "eslint:recommended",
     "plugin:vue/vue3-recommended",
