@@ -5,7 +5,7 @@
     </h3>
     <div class="w-3/4 px-4 flex flex-col justify-center space-y-2">
       <div
-        v-for="(modification, slot) in weapon.modifications"
+        v-for="(modification, slot) in equipment.modifications"
         :key="slot"
         class="flex flex-col"
       >
@@ -36,12 +36,14 @@
 
 <script lang="ts" setup>
 import { Weapon } from "@/assets/ts/weapon/weapon"
+import { Apparel } from "@/assets/ts/apparel/apparel"
+
 
 const props = defineProps({
-  weapon: {
-    type: Weapon,
+  equipment: {
+    type: [Weapon, Apparel],
     required: true,
-  }
+  },
 })
 
 </script>

@@ -10,7 +10,7 @@
         class="flex flex-row justify-between"
       >
         <p>{{ attribute }} :</p>
-        <p>{{ weapon[attribute as string] }}</p>
+        <p>{{ equipment[attribute as string] }}</p>
       </div>
     </div>
   </div>
@@ -18,10 +18,11 @@
 
 <script lang="ts" setup>
 import { Weapon } from "@/assets/ts/weapon/weapon"
+import { Apparel } from "@/assets/ts/apparel/apparel"
 
 const props = defineProps({
-  weapon: {
-    type: Weapon,
+  equipment: {
+    type: [Weapon, Apparel],
     required: true,
   },
   segmentName: {
