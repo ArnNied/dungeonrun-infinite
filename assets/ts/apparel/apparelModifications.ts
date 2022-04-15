@@ -1,16 +1,20 @@
 import { Modification, ModificationConfig } from "@/assets/ts/base/modifications"
 
 export class ApparelModification extends Modification {
+  healthPointModifier: number
+  defenceModifier: number
+  artsResistanceModifier: number
+
   config: ModificationConfig = {
-    healthModifier: {
+    healthPointModifier: {
       min: -0.1,
       max: 0.15,
     },
-    defModifier: {
+    defenceModifier: {
       min: -0.1,
       max: 0.15,
     },
-    resModifier: {
+    artsResistanceModifier: {
       min: -0.1,
       max: 0.15,
     },
