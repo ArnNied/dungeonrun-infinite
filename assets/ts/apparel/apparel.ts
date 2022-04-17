@@ -1,15 +1,30 @@
-import { Equipment } from "@/assets/ts/base/equipment"
+import { Equipment, EquipmentConfiguration } from "@/assets/ts/base/equipment"
 import { ApparelModification } from "@/assets/ts/apparel/apparelModifications"
+
+
+export const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"] as const
+type TypeApparelLocation = typeof apparelLocation[number]
 
 type ApparelModificationSlot = {
   firstEnhancement: ApparelModification,
   secondEnhancement: ApparelModification,
 }
 
+type ApparelConfiguration = EquipmentConfiguration & {
+  baseHealthPoint?: number
+  baseDefence?: number
+  baseArtsResistance?: number
+  location?: TypeApparelLocation
+
+  modifications?: ApparelModificationSlot
+}
+
 interface InterfaceApparel {
   baseHealthPoint: number
   baseDefence: number
   baseArtsResistance: number
+
+  location: TypeApparelLocation
 
   modifications: ApparelModificationSlot
 
@@ -19,8 +34,6 @@ interface InterfaceApparel {
 
 }
 
-const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"] as const
-type TypeApparelLocation = typeof apparelLocation[number]
 
 export class Apparel extends Equipment implements InterfaceApparel {
   baseHealthPoint = 1
@@ -35,7 +48,7 @@ export class Apparel extends Equipment implements InterfaceApparel {
     secondEnhancement: new ApparelModification(),
   }
 
-  constructor(rating: number) {
+  constructor(rating: number, configuration?: ApparelConfiguration) {
     super(rating)
 
     this.baseHealthPoint = rating * this.baseHealthPoint
@@ -43,6 +56,10 @@ export class Apparel extends Equipment implements InterfaceApparel {
     this.baseArtsResistance = rating * this.baseArtsResistance
     this.location = apparelLocation[Math.floor(Math.random() * apparelLocation.length)]
     this.rating = rating
+
+    if (configuration) {
+      this.manualConfiguration(configuration)
+    }
   }
 
   get healthPoint(): number {

@@ -4,6 +4,10 @@ export type ModificationSlot = {
     [slotName: string]: Modification
 }
 
+export type EquipmentConfiguration = {
+  [slotName: string]: string | number
+}
+
 export class Equipment {
   rating: number
   modifications: ModificationSlot
@@ -11,6 +15,18 @@ export class Equipment {
   constructor(rating: number) {
     this.rating = rating
   }
+
+  manualConfiguration(configuration: EquipmentConfiguration) {
+    Object.entries(configuration).forEach(([key, value]) => {
+      // this[key as keyof EquipmentConfiguration] = value
+      Object.defineProperty(this, key, {
+        value: value,
+        writable: true,
+      })
+      // Object.
+    })
+  }
+
   initializeModifications() {
     Object.keys(this.modifications).forEach((property)=>{
       this.modifications[property as keyof ModificationSlot]?.initProps()
@@ -41,12 +57,10 @@ export class Equipment {
     const modificationWithCorrectModifier = this.getListModifierValue(name)
 
     modificationWithCorrectModifier.forEach(modification => {
-      // console.log(modification)
       totalModifiers += modification.value
     })
 
     return totalModifiers
   }
 }
-
 
