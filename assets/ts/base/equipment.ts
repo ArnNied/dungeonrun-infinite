@@ -18,12 +18,10 @@ export class Equipment {
 
   manualConfiguration(configuration: EquipmentConfiguration) {
     Object.entries(configuration).forEach(([key, value]) => {
-      // this[key as keyof EquipmentConfiguration] = value
       Object.defineProperty(this, key, {
         value: value,
-        writable: true,
+        writable: true
       })
-      // Object.
     })
   }
 

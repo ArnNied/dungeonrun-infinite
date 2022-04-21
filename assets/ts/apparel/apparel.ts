@@ -1,16 +1,17 @@
 import { Equipment, EquipmentConfiguration } from "@/assets/ts/base/equipment"
 import { ApparelModification } from "@/assets/ts/apparel/apparelModifications"
+import { getRandomItem } from "@/assets/ts/utils"
 
 
-export const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"] as const
-type TypeApparelLocation = typeof apparelLocation[number]
+export const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"]
+export type TypeApparelLocation = typeof apparelLocation[number]
 
 type ApparelModificationSlot = {
   firstEnhancement: ApparelModification,
   secondEnhancement: ApparelModification,
 }
 
-type ApparelConfiguration = EquipmentConfiguration & {
+export type ApparelConfiguration = EquipmentConfiguration & {
   baseHealthPoint?: number
   baseDefence?: number
   baseArtsResistance?: number
@@ -54,7 +55,7 @@ export class Apparel extends Equipment implements InterfaceApparel {
     this.baseHealthPoint = rating * this.baseHealthPoint
     this.baseDefence = rating * this.baseDefence
     this.baseArtsResistance = rating * this.baseArtsResistance
-    this.location = apparelLocation[Math.floor(Math.random() * apparelLocation.length)]
+    this.location = getRandomItem(apparelLocation)
     this.rating = rating
 
     if (configuration) {

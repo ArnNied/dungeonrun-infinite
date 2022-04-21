@@ -14,9 +14,10 @@
           <DebugEquipmentModifications :equipment="weapon" />
         </div>
         <div class="w-1/4 flex flex-col space-y-2">
+          <DebugWeaponConfigurationForm @generate-weapon="generateWeapon" />
           <button
             class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-            @click="generateWeapon"
+            @click="generateWeapon()"
           >
             Generate
           </button>
@@ -45,11 +46,15 @@
           <DebugEquipmentModifications :equipment="apparel" />
         </div>
         <div class="w-1/4 flex flex-col space-y-2">
+          <DebugApparelConfigurationForm
+            @generate-apparel="generateApparel"
+          />
           <button
+            type="submit"
             class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-            @click="generateApparel"
+            @click="generateApparel()"
           >
-            Generate
+            Generate Random
           </button>
           <button
             class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
@@ -64,8 +69,9 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { Weapon } from "@/assets/ts/weapon/weapon"
-import { Apparel } from "@/assets/ts/apparel/apparel"
+import { Weapon, WeaponConfiguration } from "@/assets/ts/weapon/weapon"
+import { Apparel, ApparelConfiguration } from "@/assets/ts/apparel/apparel"
+
 
 useHead({
   title: "DungeonRun | Debug Weapon",
@@ -97,11 +103,7 @@ const baseApparelAttributes = [
   "baseArtsResistance",
 ]
 
-const apparelAttributes = [
-  "healthPoint",
-  "defence",
-  "artsResistance",
-]
+const apparelAttributes = ["healthPoint", "defence", "artsResistance"]
 
 const weapon = ref(new Weapon(100))
 weapon.value.initializeModifications()
@@ -109,13 +111,39 @@ weapon.value.initializeModifications()
 const apparel = ref(new Apparel(100))
 apparel.value.initializeModifications()
 
-function generateWeapon() {
-  weapon.value = new Weapon(100)
+function sanitizeForm(configuration: WeaponConfiguration | ApparelConfiguration): WeaponConfiguration | ApparelConfiguration{
+  const sanitized = {}
+
+  Object.entries(configuration).forEach(([key, value]) => {
+    if (value || value === 0) {
+      Object.defineProperty(sanitized, key, {
+        value: value,
+        writable: true,
+        enumerable: true,
+      })
+    }
+  })
+
+  return sanitized
+}
+
+function generateWeapon(configuration?: WeaponConfiguration) {
+  if (configuration) {
+    let sanitized = sanitizeForm(configuration)
+    weapon.value = new Weapon(sanitized.rating as number || 100, sanitized as WeaponConfiguration)
+  } else {
+    weapon.value = new Weapon(100)
+  }
   weapon.value.initializeModifications()
 }
 
-function generateApparel() {
-  apparel.value = new Apparel(100)
+function generateApparel(configuration?: ApparelConfiguration) {
+  if (configuration) {
+    let sanitized = sanitizeForm(configuration)
+    apparel.value = new Apparel(sanitized.rating as number || 100, sanitized as ApparelConfiguration)
+  } else {
+    apparel.value = new Apparel(100)
+  }
   apparel.value.initializeModifications()
 }
 </script>

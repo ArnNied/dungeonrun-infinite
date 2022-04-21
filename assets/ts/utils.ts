@@ -17,3 +17,7 @@ export function rng(value?: number): boolean | number {
     return Math.random()
   }
 }
+
+export function getRandomItem<T>(array: T[]): T {
+  return array[Math.floor(Math.random() * array.length)]
+}

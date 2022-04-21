@@ -7,7 +7,7 @@ import {
   WeaponModificationStock,
 } from "@/assets/ts/weapon/weaponModifications"
 
-import { rng } from "@/assets/ts/utils"
+import { getRandomItem, rng } from "@/assets/ts/utils"
 
 export type WeaponModificationSlot = {
 	body: WeaponModificationBody
@@ -17,19 +17,22 @@ export type WeaponModificationSlot = {
 	stock?: WeaponModificationStock
 }
 
-type WeaponConfiguration = EquipmentConfiguration & {
-  damageType: "PHYSICAL" | "ARTS"
-  baseDamage: number
-  baseSpeed: number
-  baseHitChance: number
-  baseCritChance: number
-  baseCritMultiplier: number
+export const weaponDamageType = ["PHYSICAL", "ARTS"]
+export type WeaponDamageType = typeof weaponDamageType[number]
+
+export type WeaponConfiguration = EquipmentConfiguration & {
+  damageType?: WeaponDamageType
+  baseDamage?: number
+  baseSpeed?: number
+  baseHitChance?: number
+  baseCritChance?: number
+  baseCritMultiplier?: number
 
   modifications?: WeaponModificationSlot
 }
 
 interface InterfaceApparel {
-  damageType: "PHYSICAL" | "ARTS"
+  damageType: WeaponDamageType
   baseDamage: number
   baseSpeed: number
   baseHitChance: number
@@ -44,8 +47,10 @@ interface InterfaceApparel {
   get critChance(): number
   get critMultiplier(): number
 }
+
+
 export class Weapon extends Equipment implements InterfaceApparel {
-  damageType: "PHYSICAL" | "ARTS"
+  damageType: WeaponDamageType
   baseDamage = 0.3
   baseSpeed = 0.3
   baseHitChance = 0.85
@@ -64,7 +69,7 @@ export class Weapon extends Equipment implements InterfaceApparel {
     super(rating)
 
     this.baseDamage = rating * this.baseDamage
-    this.damageType = rng(0.5) ? "PHYSICAL" : "ARTS"
+    this.damageType = getRandomItem(weaponDamageType)
 
     if (configuration) {
       this.manualConfiguration(configuration)
