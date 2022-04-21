@@ -3,75 +3,36 @@
     class="flex flex-col space-y-2"
     @submit.prevent="$emit('generateWeapon', weaponConfiguration)"
   >
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apparelRating">Rating</label>
-      <input
-        id="apparelRating"
-        v-model="weaponConfiguration.rating"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apparelLocation">damageType</label>
-      <select
-        id="apparelLocation"
-        v-model="weaponConfiguration.damageType"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-        <option
-          v-for="damageType in weaponDamageType"
-          :key="damageType"
-        >
-          {{ damageType }}
-        </option>
-      </select>
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apparelDefence">baseDamage</label>
-      <input
-        id="apparelDefence"
-        v-model="weaponConfiguration.baseDamage"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apparelDefence">baseSpeed</label>
-      <input
-        id="apparelDefence"
-        v-model="weaponConfiguration.baseSpeed"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apprelRes">baseHitChance</label>
-      <input
-        id="apprelRes"
-        v-model="weaponConfiguration.baseHitChance"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apprelRes">baseCritChance</label>
-      <input
-        id="apprelRes"
-        v-model="weaponConfiguration.baseCritChance"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
-    <div class="w-full flex flex-row items-center space-x-2">
-      <label for="apprelRes">baseCritMultiplier</label>
-      <input
-        id="apprelRes"
-        v-model="weaponConfiguration.baseCritMultiplier"
-        type="text"
-        class="w-full p-1 border border-solid border-green-700 text-black text-right rounded-sm focus:outline-none"
-      >
-    </div>
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.rating"
+      attribute-name="Rating"
+    />
+    <DebugEquipmentFormSelect
+      v-model="weaponConfiguration.damageType"
+      attribute-name="Damage Type"
+      :options="weaponDamageType"
+    />
+
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.baseDamage"
+      attribute-name="Base Damage"
+    />
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.baseSpeed"
+      attribute-name="Base Speed"
+    />
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.baseHitChance"
+      attribute-name="Base Hit Chance"
+    />
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.baseCritChance"
+      attribute-name="Base Crit Chance"
+    />
+    <DebugEquipmentFormInput
+      v-model="weaponConfiguration.baseCritMultiplier"
+      attribute-name="Base Crit Multiplier"
+    />
     <button
       type="submit"
       class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
@@ -93,8 +54,7 @@ const weaponConfiguration = ref({
   baseDamage: "",
   baseSpeed: "",
   baseHitChance: "",
-  baseCritChance:  "",
+  baseCritChance: "",
   baseCritMultiplier: "",
 })
-
 </script>
