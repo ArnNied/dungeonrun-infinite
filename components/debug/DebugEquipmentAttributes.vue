@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/2 flex flex-col items-center space-y-2">
+  <div class="w-full flex flex-col items-center space-y-2">
     <DebugEquipmentAttributesSegment
       segment-name="Base Stats"
       :equipment="equipment"

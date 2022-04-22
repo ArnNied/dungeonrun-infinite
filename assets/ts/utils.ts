@@ -21,3 +21,19 @@ export function rng(value?: number): boolean | number {
 export function getRandomItem<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)]
 }
+
+export function sanitizeForm(configuration: object): object {
+  const sanitized = {}
+
+  Object.entries(configuration).forEach(([key, value]) => {
+    if (value || value === 0) {
+      Object.defineProperty(sanitized, key, {
+        value: value,
+        writable: true,
+        enumerable: true,
+      })
+    }
+  })
+
+  return sanitized
+}

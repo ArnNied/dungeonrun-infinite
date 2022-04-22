@@ -1,9 +1,9 @@
 <template>
-  <div class="w-1/2 flex flex-col items-center">
+  <div class="w-full flex flex-col items-center">
     <h3 class="text-lg text-center">
       Modifications
     </h3>
-    <div class="w-3/4 px-4 flex flex-col justify-center space-y-2">
+    <div class="w-full px-4 flex flex-col justify-center space-y-2">
       <div
         v-for="(modification, slot) in equipment.modifications"
         :key="slot"

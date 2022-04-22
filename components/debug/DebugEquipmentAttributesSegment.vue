@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/4 flex flex-col items-center">
+  <div class="w-full flex flex-col items-center">
     <h3 class="text-lg text-center">
       {{ segmentName }}
     </h3>
