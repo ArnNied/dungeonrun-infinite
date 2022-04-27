@@ -43,11 +43,11 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { Weapon, WeaponConfiguration } from "@/assets/ts/weapon/weapon"
+import { TWeaponConfiguration } from "@/assets/ts/weapon/weapon"
 import { sanitizeForm } from "@/assets/ts/utils"
+import { createEquipment } from "@/assets/ts/factory"
 
-const weapon = ref(new Weapon(100))
-weapon.value.initializeModifications()
+const weapon = ref(createEquipment("WEAPON", 100))
 
 const baseWeaponAttribute = [
   "rating",
@@ -67,16 +67,8 @@ const weaponAttributes = [
   "critMultiplier",
 ]
 
-function generateWeapon(configuration?: WeaponConfiguration) {
-  if (configuration) {
-    let sanitized = sanitizeForm(configuration) as WeaponConfiguration
-    weapon.value = new Weapon(
-      (sanitized.rating as number) || 100,
-			sanitized as WeaponConfiguration
-    )
-  } else {
-    weapon.value = new Weapon(100)
-  }
-  weapon.value.initializeModifications()
+function generateWeapon(configuration?: TWeaponConfiguration): void {
+  let sanitized = sanitizeForm(configuration || {}) as TWeaponConfiguration
+  weapon.value = createEquipment("WEAPON", sanitized?.rating, undefined, sanitized)
 }
 </script>

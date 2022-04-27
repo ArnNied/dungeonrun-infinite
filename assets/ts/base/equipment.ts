@@ -1,33 +1,43 @@
-import { Modification } from "../base/modifications"
+import { BaseItem, TFixedConfiguration, TInitialConfiguration } from "@/assets/ts/base/base"
+import { Modification } from "@/assets/ts/base/modification"
 
-export type ModificationSlot = {
+export type TModificationSlot = {
     [slotName: string]: Modification
 }
 
-export type EquipmentConfiguration = {
-  [slotName: string]: string | number
-}
-
-export class Equipment {
+export class Equipment extends BaseItem {
   rating: number
-  modifications: ModificationSlot
+  modifications: TModificationSlot
 
-  constructor(rating: number) {
+  constructor(rating: number, configuration?: TInitialConfiguration) {
+    super(configuration)
+
     this.rating = rating
   }
 
-  manualConfiguration(configuration: EquipmentConfiguration) {
-    Object.entries(configuration).forEach(([key, value]) => {
+  applyConfiguration(): void {
+    Object.entries(this.configuration).forEach(([key, value]) => {
       Object.defineProperty(this, key, {
-        value: value,
-        writable: true
+        value: value.init(this.rating),
+        writable: true,
+        enumerable: true
       })
     })
   }
 
-  initializeModifications() {
+  fixedConfiguration(configuration: TFixedConfiguration): void {
+    Object.entries(configuration).forEach(([key, value]) => {
+      Object.defineProperty(this, key, {
+        value: value,
+        writable: true,
+        enumerable: true
+      })
+    })
+  }
+
+  initializeModifications(): void {
     Object.keys(this.modifications).forEach((property)=>{
-      this.modifications[property as keyof ModificationSlot]?.initProps()
+      this.modifications[property as keyof TModificationSlot]?.applyConfiguration()
     })
   }
 

@@ -1,22 +1,20 @@
-import { Modification, ModificationConfig } from "@/assets/ts/base/modifications"
+import { Config } from "@/assets/ts/base/base"
+import { Modification, modificationDefaultRange } from "@/assets/ts/base/modification"
 
+
+export type TApparelModificationModifier = {
+  healthPointModifier: Config
+  defenceModifier: Config
+  artsResistanceModifier: Config
+}
 export class ApparelModification extends Modification {
   healthPointModifier: number
   defenceModifier: number
   artsResistanceModifier: number
 
-  config: ModificationConfig = {
-    healthPointModifier: {
-      min: -0.1,
-      max: 0.15,
-    },
-    defenceModifier: {
-      min: -0.1,
-      max: 0.15,
-    },
-    artsResistanceModifier: {
-      min: -0.1,
-      max: 0.15,
-    },
+  configuration: TApparelModificationModifier = {
+    healthPointModifier: new Config(modificationDefaultRange),
+    defenceModifier: new Config(modificationDefaultRange),
+    artsResistanceModifier: new Config(modificationDefaultRange),
   }
 }

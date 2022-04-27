@@ -32,11 +32,11 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { Apparel, ApparelConfiguration } from "@/assets/ts/apparel/apparel"
+import { TApparelConfiguration } from "@/assets/ts/apparel/apparel"
 import { sanitizeForm } from "@/assets/ts/utils"
+import { createEquipment } from "@/assets/ts/factory"
 
-const apparel = ref(new Apparel(100))
-apparel.value.initializeModifications()
+const apparel = ref(createEquipment("APPAREL", 100))
 
 const baseApparelAttributes = [
   "location",
@@ -48,16 +48,8 @@ const baseApparelAttributes = [
 
 const apparelAttributes = ["healthPoint", "defence", "artsResistance"]
 
-function generateApparel(configuration?: ApparelConfiguration) {
-  if (configuration) {
-    let sanitized = sanitizeForm(configuration) as ApparelConfiguration
-    apparel.value = new Apparel(
-      (sanitized.rating as number) || 100,
-      sanitized
-    )
-  } else {
-    apparel.value = new Apparel(100)
-  }
-  apparel.value.initializeModifications()
+function generateApparel(configuration?: TApparelConfiguration): void {
+  let sanitized = sanitizeForm(configuration || {}) as TApparelConfiguration
+  apparel.value = createEquipment("APPAREL", sanitized?.rating, undefined, sanitized)
 }
 </script>

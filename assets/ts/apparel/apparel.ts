@@ -1,33 +1,30 @@
-import { Equipment, EquipmentConfiguration } from "@/assets/ts/base/equipment"
 import { ApparelModification } from "@/assets/ts/apparel/apparelModifications"
-import { getRandomItem } from "@/assets/ts/utils"
+import { Config, TInitialConfiguration } from "@/assets/ts/base/base"
+import { Equipment } from "@/assets/ts/base/equipment"
 
 
-export const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"]
-export type TypeApparelLocation = typeof apparelLocation[number]
+export const apparelLocation = ["HEAD", "TORSO", "ARMS", "LEGS"] as const
+export type TApparelLocation = typeof apparelLocation[number]
 
-type ApparelModificationSlot = {
-  firstEnhancement: ApparelModification,
-  secondEnhancement: ApparelModification,
-}
-
-export type ApparelConfiguration = EquipmentConfiguration & {
+export type TApparelConfiguration = {
+  rating?: number
   baseHealthPoint?: number
   baseDefence?: number
   baseArtsResistance?: number
-  location?: TypeApparelLocation
 
-  modifications?: ApparelModificationSlot
+  location?: TApparelLocation
+
+  modifications?: TApparelModificationSlot
 }
 
-interface InterfaceApparel {
+interface IApparel {
   baseHealthPoint: number
   baseDefence: number
   baseArtsResistance: number
 
-  location: TypeApparelLocation
+  location: TApparelLocation
 
-  modifications: ApparelModificationSlot
+  modifications: TApparelModificationSlot
 
   get healthPoint(): number
   get defence(): number
@@ -35,32 +32,28 @@ interface InterfaceApparel {
 
 }
 
+export type TApparelModificationSlot = {
+  firstEnhancement: ApparelModification,
+  secondEnhancement: ApparelModification,
+}
 
-export class Apparel extends Equipment implements InterfaceApparel {
-  baseHealthPoint = 1
-  baseDefence = 0.1
-  baseArtsResistance = 0.1
-  rating: number
+export class Apparel extends Equipment implements IApparel {
+  baseHealthPoint: number
+  baseDefence: number
+  baseArtsResistance: number
 
-  location: TypeApparelLocation
+  location: TApparelLocation
 
-  modifications: ApparelModificationSlot = {
-    firstEnhancement: new ApparelModification(),
-    secondEnhancement: new ApparelModification(),
+  configuration: TInitialConfiguration = {
+    baseHealthPoint: new Config(1, true),
+    baseDefence: new Config(0.1, true),
+    baseArtsResistance: new Config(0.1, true),
+    location: new Config([...apparelLocation])
   }
 
-  constructor(rating: number, configuration?: ApparelConfiguration) {
-    super(rating)
-
-    this.baseHealthPoint = rating * this.baseHealthPoint
-    this.baseDefence = rating * this.baseDefence
-    this.baseArtsResistance = rating * this.baseArtsResistance
-    this.location = getRandomItem(apparelLocation)
-    this.rating = rating
-
-    if (configuration) {
-      this.manualConfiguration(configuration)
-    }
+  modifications: TApparelModificationSlot = {
+    firstEnhancement: new ApparelModification(),
+    secondEnhancement: new ApparelModification(),
   }
 
   get healthPoint(): number {

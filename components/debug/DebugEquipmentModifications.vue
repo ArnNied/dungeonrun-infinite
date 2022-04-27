@@ -13,7 +13,7 @@
           <h4>{{ slot.toUpperCase() }}</h4>
           <div class="flex flex-col">
             <div
-              v-for="(attribute, key) in modification?.config"
+              v-for="(attribute, key) in modification?.configuration"
               :key="key"
               class="flex flex-row justify-between"
             >
