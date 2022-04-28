@@ -1,17 +1,22 @@
 <template>
   <button
-    class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
+    class="p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
+    :class="[textSize, width]"
     @click="$emit('onClick')"
   >
-    {{ label }}
+    <slot />
   </button>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
-  label: {
+  textSize: {
     type: String,
-    required: true
+    default: "text-base"
+  },
+  width: {
+    type: String,
+    default: "w-full"
   }
 })
 const emits = defineEmits(["onClick"])

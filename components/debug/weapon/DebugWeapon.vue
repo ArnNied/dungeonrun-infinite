@@ -11,22 +11,15 @@
           <DebugWeaponConfigurationForm
             @generate-weapon="generateWeapon"
           />
-          <button
-            class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-            @click="generateWeapon()"
-          >
+          <CommonButton @on-click="generateWeapon">
             Generate Random
-          </button>
-          <button
-            class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-          >
+          </CommonButton>
+          <CommonButton>
             Equip Primary
-          </button>
-          <button
-            class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-          >
+          </CommonButton>
+          <CommonButton>
             Equip Secondary
-          </button>
+          </CommonButton>
         </div>
         <div class="w-2/3 flex flex-row">
           <DebugEquipmentAttributes

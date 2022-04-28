@@ -11,11 +11,12 @@
           <DebugApparelConfigurationForm
             @generate-apparel="generateApparel"
           />
-          <CommonButton
-            label="GenerateRandom"
-            @on-click="generateApparel"
-          />
-          <CommonButton label="Equip" />
+          <CommonButton @on-click="generateApparel">
+            Generate Random
+          </CommonButton>
+          <CommonButton>
+            Equip
+          </CommonButton>
         </div>
         <div class="w-2/3 flex flex-row">
           <DebugEquipmentAttributes

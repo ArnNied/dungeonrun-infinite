@@ -33,12 +33,9 @@
       v-model="weaponConfiguration.baseCritMultiplier"
       attribute-name="Base Crit Multiplier"
     />
-    <button
-      type="submit"
-      class="w-full p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
-    >
+    <CommonButton type="submit">
       Generate w/ Configuration
-    </button>
+    </CommonButton>
   </form>
 </template>
 
