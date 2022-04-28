@@ -20,6 +20,11 @@
       <DebugApparel v-if="selectedEquipment === 'apparel'" />
       <DebugWeapon v-if="selectedEquipment === 'weapon'" />
     </div>
+    <NuxtLink
+      to="/run"
+    >
+      Debug
+    </NuxtLink>
   </div>
 </template>
 
