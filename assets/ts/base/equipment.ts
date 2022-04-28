@@ -1,8 +1,8 @@
 import { BaseItem, TFixedConfiguration, TInitialConfiguration } from "@/assets/ts/base/base"
-import { Modification } from "@/assets/ts/base/modification"
+import { Modification, itemGrade } from "@/assets/ts/base/modification"
 
 export type TModificationSlot = {
-    [slotName: string]: Modification
+  [slotName: string]: Modification
 }
 
 export class Equipment extends BaseItem {
@@ -13,6 +13,24 @@ export class Equipment extends BaseItem {
     super(configuration)
 
     this.rating = rating
+  }
+
+  get iGrade(): number {
+    let sumIGrade = 0
+
+    const modifications = Object.values(this.modifications)
+    modifications.forEach(value => {
+      const modIGrade = Object.getOwnPropertyDescriptor(value, "iGrade")?.value
+      sumIGrade += modIGrade
+    })
+
+    const iGrade: number = Math.round(sumIGrade / (modifications.length * (itemGrade.length - 1)) * (itemGrade.length - 1))
+
+    return iGrade
+  }
+
+  get grade(): string {
+    return itemGrade[this.iGrade]
   }
 
   applyConfiguration(): void {
@@ -36,8 +54,8 @@ export class Equipment extends BaseItem {
   }
 
   initializeModifications(): void {
-    Object.keys(this.modifications).forEach((property)=>{
-      this.modifications[property as keyof TModificationSlot]?.applyConfiguration()
+    Object.values(this.modifications).forEach(value => {
+      value.applyConfiguration()
     })
   }
 

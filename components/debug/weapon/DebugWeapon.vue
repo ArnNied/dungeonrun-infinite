@@ -42,15 +42,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
-import { TWeaponConfiguration } from "@/assets/ts/weapon/weapon"
+import { Ref, ref } from "vue"
+import { TWeaponConfiguration, Weapon } from "@/assets/ts/weapon/weapon"
 import { sanitizeForm } from "@/assets/ts/utils"
 import { createEquipment } from "@/assets/ts/factory"
 
-const weapon = ref(createEquipment("WEAPON", 100))
+const weapon: Ref<Weapon> = ref(createEquipment("WEAPON", 100) as Weapon)
 
 const baseWeaponAttribute = [
   "rating",
+  "grade",
   "damageType",
   "baseDamage",
   "baseSpeed",
@@ -69,6 +70,6 @@ const weaponAttributes = [
 
 function generateWeapon(configuration?: TWeaponConfiguration): void {
   let sanitized = sanitizeForm(configuration || {}) as TWeaponConfiguration
-  weapon.value = createEquipment("WEAPON", sanitized?.rating, undefined, sanitized)
+  weapon.value = createEquipment("WEAPON", sanitized?.rating, undefined, sanitized) as Weapon
 }
 </script>

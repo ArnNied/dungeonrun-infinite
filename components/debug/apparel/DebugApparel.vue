@@ -31,16 +31,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
-import { TApparelConfiguration } from "@/assets/ts/apparel/apparel"
+import { Ref, ref } from "vue"
+import { Apparel, TApparelConfiguration } from "@/assets/ts/apparel/apparel"
 import { sanitizeForm } from "@/assets/ts/utils"
 import { createEquipment } from "@/assets/ts/factory"
 
-const apparel = ref(createEquipment("APPAREL", 100))
+const apparel: Ref<Apparel> = ref(createEquipment("APPAREL", 100) as Apparel)
 
 const baseApparelAttributes = [
   "location",
   "rating",
+  "grade",
   "baseHealthPoint",
   "baseDefence",
   "baseArtsResistance",
@@ -50,6 +51,6 @@ const apparelAttributes = ["healthPoint", "defence", "artsResistance"]
 
 function generateApparel(configuration?: TApparelConfiguration): void {
   let sanitized = sanitizeForm(configuration || {}) as TApparelConfiguration
-  apparel.value = createEquipment("APPAREL", sanitized?.rating, undefined, sanitized)
+  apparel.value = createEquipment("APPAREL", sanitized?.rating, undefined, sanitized) as Apparel
 }
 </script>

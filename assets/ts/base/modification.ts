@@ -1,23 +1,22 @@
-import { BaseItem } from "@/assets/ts/base/base"
+import { BaseItem, TMinMax } from "@/assets/ts/base/base"
 
 
-export const modificationGrade = [
+export const itemGrade = [
+  "AWFUL",
   "POOR",
-  "BAD",
   "NORMAL",
-  "GOOD",
-  "EPIC",
+  "FINE",
+  "PRIME",
 ] as const
 
-export const modificationDefaultRange = { min: -0.1, max: 0.15 } as const
+export const modificationDefaultRange: TMinMax = { min: -0.1, max: 0.15 } as const
 
-export type TModificationGrade = typeof modificationGrade[number]
+export type TItemGrade = typeof itemGrade[number]
 
 export class Modification extends BaseItem {
   initialized = false
-  grade: TModificationGrade = "NORMAL"
-  //  0.1 - 0.05 | 0.05 - 0 | 0 - 0.05 | 0.05 - 0.1 | 0.1 - 0.15
-  // gradeCategorization:
+  grade: TItemGrade = "NORMAL"
+  iGrade: number
 
   applyConfiguration(): void {
     if (!this.initialized) {
@@ -28,8 +27,30 @@ export class Modification extends BaseItem {
           enumerable: true,
         })
       })
-      // TODO: Set grade
+      this.calculateGrade()
     }
     this.initialized = true
   }
+
+  calculateGrade(): TItemGrade {
+    const step: number = 1 / itemGrade.length
+    let totalRange = 0
+    let quality = 0
+
+    Object.entries(this.configuration).forEach(([key, value]) => {
+      const initialized: number = Object.getOwnPropertyDescriptor(this, key)?.value
+      if (typeof value.value === "object" && !Array.isArray(value.value)) {
+        totalRange += value.value.max - value.value.min
+        quality += initialized - value.value.min
+      }
+    })
+
+    this.iGrade = Math.floor(quality / totalRange / step)
+    this.grade = itemGrade[this.iGrade]
+    // console.log(this.iGrade)
+    // console.log(step, totalRange, quality, quality / totalRange, itemGrade[this.iGrade])
+
+    return this.grade
+  }
 }
+
