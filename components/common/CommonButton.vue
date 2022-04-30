@@ -1,6 +1,6 @@
 <template>
   <button
-    class="p-2 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
+    class="px-2 py-1 border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
     :class="[textSize, width]"
     @click="$emit('onClick')"
   >

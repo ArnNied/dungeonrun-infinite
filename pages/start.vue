@@ -8,7 +8,7 @@
     >
     <NuxtLink
       to="/run"
-      class="px-1 py-px border-2 border-solid border-green-700 hover:bg-green-600 text-white text-center rounded-sm"
+      class="px-1 py-px border-2 border-solid border-green-700 hover:bg-green-600 text-center rounded-sm"
       @click="startGame"
     >
       start
@@ -18,11 +18,11 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { Player, setPlayer } from "@/assets/ts/player"
+import { Entity, setPlayer } from "@/assets/ts/entity"
 
 const playerName = ref("")
 
 function startGame() {
-  setPlayer(new Player(playerName.value))
+  setPlayer(new Entity(playerName.value, 10))
 }
 </script>

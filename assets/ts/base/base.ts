@@ -1,4 +1,5 @@
 import { getRandomArbitrary, getRandomItem } from "@/assets/ts/utils"
+import { TWeaponDamageType } from "@/assets/ts/weapon/weapon"
 
 export type TFixedConfiguration = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -76,5 +77,17 @@ export class Config {
     }
 
     return value
+  }
+}
+
+export class Damage {
+  type: TWeaponDamageType
+  value: number
+  critical: boolean
+
+  constructor(type: TWeaponDamageType, value: number, critical: boolean) {
+    this.type = type
+    this.value = value
+    this.critical = critical
   }
 }
